@@ -17,6 +17,10 @@
 	
 	<java.version>13</java.version>
 	<maven-compiler-pluging.version>3.2</maven-compiler-pluging.version>
+	<!-- Spring MVC -->
+	<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+	<!-- Servlet API -->
+	<servlet.version>3.1.0</servlet.version>
   </properties>
   
   <build>
@@ -31,5 +35,36 @@
 		</plugin>
 	</plugins>
   </build>	
+  
+  <dependencyManagement>
+		<dependencies>
+			<!-- Assim eu usarei somente versões compatíveis do spring com spring-framework-bom -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring-framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+		<!-- Spring MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- Servlet API: provided só para tempo de desenvolvimento, na hora de gerar o war final nao preciso desses pacote, pois o tomcat já tem -->
+		<!-- Essa dependencia é necessária para AbstractAnnotationConfigDispatcherServletInitializer -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	
   
 </project>
