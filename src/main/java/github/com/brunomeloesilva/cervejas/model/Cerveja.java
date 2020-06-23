@@ -1,7 +1,10 @@
 package github.com.brunomeloesilva.cervejas.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Cerveja {
 	
+	@NotBlank
 	private String sku;
 	private String nome;
 	

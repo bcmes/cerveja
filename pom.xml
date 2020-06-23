@@ -23,6 +23,8 @@
 	<servlet.version>3.1.0</servlet.version>
 	<!-- Thymeleaf -->
 	<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+	<!-- Bean Validation / Hibernate Validator -->
+	<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
   </properties>
   
   <build>
@@ -76,6 +78,36 @@
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${thymeleaf.version}</version>
 		</dependency>
+		<!-- Bean Validation / Hibernate Validator -->
+  		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Ao usar a dependencia acima é necessário declarar estas aqui, devido eu estar usando java > 8 -->
+        <!-- O que acontece é que o módulo do JAXB não vem mais como padrão nas versões do Java 9 ou superiores -->
+        <dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.xml.bind</groupId>
+		    <artifactId>jaxb-core</artifactId>
+		    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.xml.bind</groupId>
+		    <artifactId>jaxb-impl</artifactId>
+		    <version>2.2.11</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.activation</groupId>
+		    <artifactId>activation</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
 	</dependencies>
 	
 	
