@@ -60,5 +60,6 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+		//para chamar os recursos estaticos (chamadas a css e js) sem usar um controller
 	}
 }

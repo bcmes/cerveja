@@ -31,10 +31,6 @@ public class CervejasController {
 		//return "redirect: https://www.google.com/";
 	}
 	
-	@RequestMapping("/cervejas/cadastro")
-	public String cadastro() {
-		return "cerveja/cadastro-produto";
-	}
 }
 
 /* BindingResult - Se ouver erros eles são entregues ao BindingResult.
