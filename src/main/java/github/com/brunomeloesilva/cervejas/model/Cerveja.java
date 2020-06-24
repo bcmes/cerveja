@@ -6,13 +6,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class Cerveja {
 
-	@NotBlank
+	@NotBlank(message = "sku não pode estar em branco.")
 	private String sku;
 	
-	@NotBlank
+	@NotBlank(message = "nome não pode estar em branco.")
 	private String nome;
 	
-	@Size(min = 1, max = 50)
+	@Size(min = 1, max = 50, message = "descricao deve ter entre 1 e 50 chars.")
 	private String descricao;
 	
 	public String getSku() {
