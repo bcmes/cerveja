@@ -18,6 +18,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import github.com.brunomeloesilva.cervejas.controller.CervejasController;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @ComponentScan(basePackageClasses = CervejasController.class)
@@ -46,6 +47,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
 		springTemplateEngine.setEnableSpringELCompiler(true);
 		springTemplateEngine.setTemplateResolver(templateResolver());
+		
+		springTemplateEngine.addDialect(new LayoutDialect()); //vem da dependencia do nz.net.ultraq.thymeleaf
 		return springTemplateEngine;
 	}
 	
