@@ -27,6 +27,10 @@
 	<hibernate-validator.version>5.3.5.Final</hibernate-validator.version>
 	<!-- Thymeleaf - Layout Dialect -->
 	<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
+	<!-- Logging -->
+	<log4j.version>2.6</log4j.version>
+	<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
+	
   </properties>
   
   <build>
@@ -60,6 +64,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<!-- Tou dizendo que dentro do pacote do spring-webmvc não quero o commons-logging -->
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- Servlet API: provided só para tempo de desenvolvimento, na hora de gerar o war final nao preciso desses pacote, pois o tomcat já tem -->
 		<!-- Essa dependencia é necessária para AbstractAnnotationConfigDispatcherServletInitializer -->
@@ -115,6 +126,28 @@
     		<artifactId>thymeleaf-layout-dialect</artifactId>
     		<version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcl-over-slf4j.version}</version>
+		</dependency>
+		
 		
 	</dependencies>
 	
