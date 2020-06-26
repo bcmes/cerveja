@@ -3,7 +3,7 @@ package github.com.brunomeloesilva.cervejas.model;
 public enum Origem {
 
 	NACIONAL("Nacional"),
-	INTERNACIONAL("Internacional");
+	INTERNACIONAL("Importada");
 	
 	private String descricao;
 	

@@ -8,5 +8,6 @@ import github.com.brunomeloesilva.cervejas.model.Cerveja;
 
 @Repository
 public interface Cervejas extends JpaRepository<Cerveja, Long> {
-
+	
+	//public Optional<Cerveja> findBySkuIgnoreCase(String sku);
 }

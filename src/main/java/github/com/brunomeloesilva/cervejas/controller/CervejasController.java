@@ -8,32 +8,38 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import github.com.brunomeloesilva.cervejas.model.Cerveja;
-import github.com.brunomeloesilva.cervejas.repository.Cervejas;
+import github.com.brunomeloesilva.cervejas.model.Origem;
+import github.com.brunomeloesilva.cervejas.model.Sabor;
+import github.com.brunomeloesilva.cervejas.repository.Estilos;
 
 @Controller
 public class CervejasController {
 	
 	@Autowired
-	private Cervejas cervejas;
+	private Estilos estilos;
 	
 	@RequestMapping("/cervejas/novo")
-	public String novo(Cerveja cerveja) {
-		cervejas.findAll();
-		return "cerveja/CadastroCerveja";
+	public ModelAndView novo(Cerveja cerveja) {
+		ModelAndView modelAndView = new ModelAndView("cerveja/CadastroCerveja");
+		modelAndView.addObject("sabores", Sabor.values());
+		modelAndView.addObject("estilos", estilos.findAll());
+		modelAndView.addObject("origens", Origem.values());
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
-	public String cadastrar(@Valid Cerveja cerveja, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {
 			return novo(cerveja);
 		}
 		
 		redirectAttributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso");
 		System.out.println("SKU>>> " + cerveja.getSku());
-		return "redirect:/cervejas/novo";
+		return new ModelAndView("redirect:/cervejas/novo");
 		//return "redirect: https://www.google.com/";
 	}
 	
