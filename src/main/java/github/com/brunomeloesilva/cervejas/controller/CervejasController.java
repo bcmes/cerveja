@@ -15,12 +15,15 @@ import github.com.brunomeloesilva.cervejas.model.Cerveja;
 import github.com.brunomeloesilva.cervejas.model.Origem;
 import github.com.brunomeloesilva.cervejas.model.Sabor;
 import github.com.brunomeloesilva.cervejas.repository.Estilos;
+import github.com.brunomeloesilva.cervejas.service.CadastroCervejaService;
 
 @Controller
 public class CervejasController {
 	
 	@Autowired
 	private Estilos estilos;
+	@Autowired
+	private CadastroCervejaService cadastroCervejaService;
 	
 	@RequestMapping("/cervejas/novo")
 	public ModelAndView novo(Cerveja cerveja) {
@@ -33,14 +36,14 @@ public class CervejasController {
 	
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		
 		if(bindingResult.hasErrors()) {
 			return novo(cerveja);
 		}
 		
+		cadastroCervejaService.salvar(cerveja);
 		redirectAttributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso");
-		System.out.println(" >>> " + cerveja);
 		return new ModelAndView("redirect:/cervejas/novo");
-		//return "redirect: https://www.google.com/";
 	}
 	
 }
@@ -51,3 +54,4 @@ public class CervejasController {
  * redirectAttributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso") - Quando se usar redirect 
  * não adianta usar  model.addAttribute que não vai funcionar, deve usar redirectAttributes.addFlashAttribute
  * */
+//return "redirect: https://www.google.com/";
