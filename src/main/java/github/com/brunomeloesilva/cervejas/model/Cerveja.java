@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import github.com.brunomeloesilva.cervejas.validation.SKU;
+
 @Entity
 @Table(name = "cerveja")
 public class Cerveja {
@@ -25,6 +27,8 @@ public class Cerveja {
 	private Long codigo;
 
 	@NotBlank(message = "SKU é obrigatório")
+	//@Pattern( regexp = "[a-zA-Z]{2}\\d{4}?", message = "O SKU deve conter 2 letras e 4 números" )
+	@SKU
 	private String sku;
 
 	@NotBlank(message = "Nome é obrigatório")
