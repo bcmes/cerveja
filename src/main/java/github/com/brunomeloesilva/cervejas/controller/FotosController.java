@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import github.com.brunomeloesilva.cervejas.dto.FotoDTO;
 import github.com.brunomeloesilva.cervejas.storage.FotoStorageRunnable;
 
 @RestController
@@ -15,9 +16,9 @@ import github.com.brunomeloesilva.cervejas.storage.FotoStorageRunnable;
 public class FotosController {
 
 	@PostMapping
-	public DeferredResult<String> upload(@RequestParam("files[]") MultipartFile[] files) {
+	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {
 		
-		DeferredResult<String> deferredResult = new DeferredResult<String>();
+		DeferredResult<FotoDTO> deferredResult = new DeferredResult<FotoDTO>();
 		Thread thread = new Thread(new FotoStorageRunnable(files, deferredResult));
 		thread.start();
 		return deferredResult;
