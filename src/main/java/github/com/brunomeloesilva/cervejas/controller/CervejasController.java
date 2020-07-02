@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,18 +15,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import github.com.brunomeloesilva.cervejas.model.Cerveja;
 import github.com.brunomeloesilva.cervejas.model.Origem;
 import github.com.brunomeloesilva.cervejas.model.Sabor;
+import github.com.brunomeloesilva.cervejas.repository.Cervejas;
 import github.com.brunomeloesilva.cervejas.repository.Estilos;
 import github.com.brunomeloesilva.cervejas.service.CadastroCervejaService;
 
 @Controller
+@RequestMapping("/cervejas")
 public class CervejasController {
 	
 	@Autowired
 	private Estilos estilos;
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
+	@Autowired
+	private Cervejas cervejas;
 	
-	@RequestMapping("/cervejas/novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja) {
 		ModelAndView modelAndView = new ModelAndView("cerveja/CadastroCerveja");
 		modelAndView.addObject("sabores", Sabor.values());
@@ -34,7 +39,7 @@ public class CervejasController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
@@ -46,6 +51,17 @@ public class CervejasController {
 		return new ModelAndView("redirect:/cervejas/novo");
 	}
 	
+	
+	@GetMapping
+	public ModelAndView pesquisar() {
+		ModelAndView mv = new ModelAndView("cerveja/PesquisaCervejas");
+		mv.addObject("estilos", estilos.findAll());
+		mv.addObject("sabores", Sabor.values());
+		mv.addObject("origens", Origem.values());
+		
+		mv.addObject("cervejas", cervejas.findAll());
+		return mv;
+	}
 }
 
 /* BindingResult - Se ouver erros eles são entregues ao BindingResult.
