@@ -20,7 +20,7 @@ import github.com.brunomeloesilva.cervejas.repository.Cervejas;
 
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
+@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false) //, repositoryImplementationPostfix = 
 @EnableTransactionManagement
 public class JPAConfig {
 
