@@ -9,6 +9,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +19,16 @@ import org.springframework.util.StringUtils;
 
 import github.com.brunomeloesilva.cervejas.model.Cerveja;
 import github.com.brunomeloesilva.cervejas.repository.filter.CervejaFilter;
+import github.com.brunomeloesilva.cervejas.repository.paginacao.PaginacaoUtil;
 
 
 public class CervejasImpl implements CervejasQueries {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginacaoUtil paginacaoUtil;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -32,19 +37,7 @@ public class CervejasImpl implements CervejasQueries {
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
 		
-		int firstResult = pageable.getPageNumber();
-		int maxResults = pageable.getPageSize();
-		firstResult = firstResult * maxResults; 
-		criteria.setFirstResult(firstResult);
-		criteria.setMaxResults(maxResults);
-		
-		Sort sort = pageable.getSort();
-		System.out.println(">>> Sort: " + sort);
-		if( sort != null ) {
-			Sort.Order order = sort.iterator().next();
-			String field = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(field) : Order.desc(field));
-		}
+		paginacaoUtil.preparar(criteria, pageable);
 		
 		adicionarFiltro(filtro, criteria);
 		
