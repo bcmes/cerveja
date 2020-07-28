@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cidade")
-public class Ciadade implements Serializable {
+public class Cidade implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -62,7 +62,7 @@ public class Ciadade implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ciadade other = (Ciadade) obj;
+		Cidade other = (Cidade) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

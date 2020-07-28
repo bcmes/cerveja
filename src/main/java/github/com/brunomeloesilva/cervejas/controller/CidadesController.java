@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import github.com.brunomeloesilva.cervejas.model.Ciadade;
+import github.com.brunomeloesilva.cervejas.model.Cidade;
 import github.com.brunomeloesilva.cervejas.repository.Cidades;
 
 @Controller
@@ -25,7 +25,7 @@ public class CidadesController {
 	}
 	
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Ciadade> pesquisarPorCodigoEstado(@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado) {
+	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado) {
 		return cidades.findByEstadoCodigo(codigoEstado);
 	}
 	

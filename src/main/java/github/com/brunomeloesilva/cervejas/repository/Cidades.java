@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import github.com.brunomeloesilva.cervejas.model.Ciadade;
+import github.com.brunomeloesilva.cervejas.model.Cidade;
 
-public interface Cidades extends JpaRepository<Ciadade, Long>{
+public interface Cidades extends JpaRepository<Cidade, Long>{
 
-	public List<Ciadade> findByEstadoCodigo(Long codigoEstado);
+	public List<Cidade> findByEstadoCodigo(Long codigoEstado);
 }
