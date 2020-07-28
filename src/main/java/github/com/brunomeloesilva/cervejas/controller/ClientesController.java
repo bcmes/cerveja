@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import github.com.brunomeloesilva.cervejas.model.Cliente;
 import github.com.brunomeloesilva.cervejas.model.TipoPessoa;
 import github.com.brunomeloesilva.cervejas.repository.Estados;
+import github.com.brunomeloesilva.cervejas.service.CadastroClienteService;
 
 @Controller
 @RequestMapping("/clientes")
@@ -20,6 +21,8 @@ public class ClientesController {
 	
 	@Autowired
 	private Estados estados;
+	@Autowired
+	private CadastroClienteService cadastroClienteService;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
@@ -35,7 +38,7 @@ public class ClientesController {
 			return novo(cliente);
 		}
 		
-		// TODO: Salvar e adicionar mensagem
+		cadastroClienteService.salvar(cliente);
 		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
 	}
