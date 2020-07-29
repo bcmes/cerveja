@@ -14,6 +14,7 @@ import github.com.brunomeloesilva.cervejas.model.Cliente;
 import github.com.brunomeloesilva.cervejas.model.TipoPessoa;
 import github.com.brunomeloesilva.cervejas.repository.Estados;
 import github.com.brunomeloesilva.cervejas.service.CadastroClienteService;
+import github.com.brunomeloesilva.cervejas.service.exception.CpfCNPJClienteJaCadastradoException;
 
 @Controller
 @RequestMapping("/clientes")
@@ -38,7 +39,13 @@ public class ClientesController {
 			return novo(cliente);
 		}
 		
-		cadastroClienteService.salvar(cliente);
+		try {
+			cadastroClienteService.salvar(cliente);
+		} catch (CpfCNPJClienteJaCadastradoException e) {
+			//Esse rejectValue Faz o mesmo trabalho da annotation do model Cliente de validação ..
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
+			return novo(cliente);
+		}
 		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
 	}
